@@ -18,7 +18,7 @@ spec:
       containers:
          - name: ingest-exporter
            imagePullPolicy: Always
-           image: quay.io/humancellatlas/ingest-exporter:v0.0.3.rc
+           image: quay.io/humancellatlas/ingest-exporter:v0.0.4.rc
            env:
              - name: INGEST_API
                value: http://api.ingest.staging.data.humancellatlas.org:80

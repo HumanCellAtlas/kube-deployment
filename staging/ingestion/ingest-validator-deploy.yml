@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
          - name: ingest-validator
-           image: quay.io/humancellatlas/ingest-validator:v0.0.3.rc
+           image: quay.io/humancellatlas/ingest-validator:v0.0.4.rc
            env:
              - name: INGEST_API
                value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
