@@ -61,3 +61,6 @@ fabric.properties
 /kubernetes-test.pem
 
 terraform/apps/ingest-auth/.terraform
+terraform/eks/.terraform/
+config/cluster_secrets/
+config/.DS_Store
