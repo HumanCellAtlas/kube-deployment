@@ -24,3 +24,4 @@ spec:
         image: quay.io/humancellatlas/ingest-accessioner:master
         imagePullPolicy: Always
         name: ingest-accessioner
+      dnsPolicy: Default

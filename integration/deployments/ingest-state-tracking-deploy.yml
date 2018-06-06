@@ -22,9 +22,13 @@ spec:
         - name: RABBIT_PORT
           value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: INGEST_API_ROOT
-          value: http://api.ingest.integration.data.humancellatlas.org
+          value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
         - name: UPDATER_PERIOD_SECONDS
-          value: "1"
-        image: quay.io/humancellatlas/ingest-state-tracking:stable_5
+          value: "3"
+        - name: REDIS_HOST
+          value: ${REDIS_SERVICE_SERVICE_HOST}
+        - name: REDIS_PORT
+          value: ${REDIS_SERVICE_SERVICE_PORT}
+        image: quay.io/humancellatlas/ingest-state-tracking:integration
         imagePullPolicy: Always
         name: ingest-state-tracking

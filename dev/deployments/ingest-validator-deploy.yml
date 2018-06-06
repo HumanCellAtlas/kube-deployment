@@ -13,6 +13,7 @@ spec:
       labels:
         app: ingest-validator
     spec:
+      dnsPolicy: Default
       containers:
       - env:
         - name: INGEST_API

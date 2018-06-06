@@ -19,7 +19,7 @@ spec:
       - env:
         - name: INGEST_API
           value: http://api.ingest.staging.data.humancellatlas.org:80
-        image: quay.io/humancellatlas/ingest-demo:v0.4.0.rc
+        image: quay.io/humancellatlas/ingest-demo:v0.5.1.rc
         imagePullPolicy: Always
         name: ingest-demo
         ports:

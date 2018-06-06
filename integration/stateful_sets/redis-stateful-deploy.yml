@@ -1,0 +1,41 @@
+apiVersion: apps/v1beta2
+kind: StatefulSet
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: redis
+  namespace: integration-environment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  serviceName: redis-service
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - args:
+        - --appendonly
+        - "yes"
+        command:
+        - redis-server
+        image: redis:4.0.9-alpine
+        name: redis
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi

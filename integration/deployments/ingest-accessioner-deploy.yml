@@ -23,6 +23,6 @@ spec:
           value: ingest.metadata.accession.queue
         - name: RABBITMQ_VALIDATION_QUEUE
           value: ingest.metadata.validation.queue
-        image: quay.io/humancellatlas/ingest-accessioner:stable_5
+        image: quay.io/humancellatlas/ingest-accessioner:integration
         name: ingest-accessioner
       dnsPolicy: Default

@@ -19,7 +19,7 @@ spec:
       - env:
         - name: INGEST_API
           value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}
-        image: quay.io/humancellatlas/ingest-demo:develop_5
+        image: quay.io/humancellatlas/ingest-demo:v0.4.0.rc
         imagePullPolicy: Always
         name: ingest-demo
         ports:

@@ -34,7 +34,7 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/humancellatlas/ingest-exporter:develop_5
+        image: quay.io/humancellatlas/ingest-exporter:v0.4.1.rc
         imagePullPolicy: Always
         name: ingest-exporter
       dnsPolicy: Default

@@ -23,7 +23,7 @@ spec:
           value: ${RABBIT_SERVICE_SERVICE_HOST}
         - name: RABBIT_PORT
           value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
-        image: quay.io/humancellatlas/ingest-core:develop_5
+        image: quay.io/humancellatlas/ingest-core:v0.4.0.rc
         imagePullPolicy: Always
         name: ingest-core
         ports:

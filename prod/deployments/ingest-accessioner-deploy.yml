@@ -23,5 +23,5 @@ spec:
           value: ingest.metadata.accession.queue
         - name: RABBITMQ_VALIDATION_QUEUE
           value: ingest.metadata.validation.queue
-        image: quay.io/humancellatlas/ingest-accessioner:develop_5
+        image: quay.io/humancellatlas/ingest-accessioner:v0.4.0.rc
         name: ingest-accessioner

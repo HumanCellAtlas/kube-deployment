@@ -4,14 +4,14 @@ metadata:
   annotations: {}
   labels:
     role: ingestion
-  name: redis-service
+  name: ingest-broker-service
   namespace: integration-environment
 spec:
   ports:
-  - port: 6379
+  - port: 80
     protocol: TCP
-    targetPort: 6379
+    targetPort: 5000
   selector:
-    app: redis
+    app: ingest-broker
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
