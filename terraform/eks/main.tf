@@ -53,7 +53,7 @@ resource "aws_subnet" "ingest_eks" {
   count = 2
 
   availability_zone = "${var.availability_zones[count.index]}"
-  cidr_block        = "10.10.${count.index}.0/24"
+  cidr_block        = "10.20.${count.index}.0/24"
   vpc_id            = "${aws_vpc.ingest_eks.id}"
 
   tags = "${
@@ -379,6 +379,10 @@ output "kubeconfig" {
   value = "${local.kubeconfig}"
 }
 
+
+
+
+
 locals {
   config_map = <<CONFIGMAPAWSAUTH
 apiVersion: v1
@@ -400,6 +404,10 @@ output "config_map" {
   value = "${local.config_map}"
 }
 
+
+
+
+
 locals {
   namespace = <<NAMESPACE
 apiVersion: v1
@@ -413,4 +421,35 @@ NAMESPACE
 
 output "namespace" {
   value = "${local.namespace}"
+}
+
+
+
+
+
+locals {
+  tilleraccount = <<TILLERACCOUNT
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: ${var.deployment_stage}-environment
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: tiller-clusterrolebinding
+subjects:
+- kind: ServiceAccount
+  name: tiller
+  namespace: ${var.deployment_stage}-environment
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: ""
+TILLERACCOUNT
+}
+
+output "tilleraccount" {
+  value = "${local.tilleraccount}"
 }

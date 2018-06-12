@@ -62,5 +62,10 @@ fabric.properties
 
 terraform/apps/ingest-auth/.terraform
 terraform/eks/.terraform/
-config/cluster_secrets/
+kubernetes/cluster-secrets/
+kubernetes/dev
+kubernetes/integration
+kubernetes/staging
+kubernetes/prod
 config/.DS_Store
+terraform/.DS_Store

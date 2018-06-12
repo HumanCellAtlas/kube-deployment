@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: dev-environment
+  annotations: {}
+  labels:
+    role: ingestion
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    app: {{ template "mongo.name" . }}
+    chart: {{ template "mongo.chart" . }}
+  name: mongo-service
+spec:
+  ports:
+  - port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    app: mongo
+    release: {{ .Release.Name }}
+  sessionAffinity: None
+  type: ClusterIP
