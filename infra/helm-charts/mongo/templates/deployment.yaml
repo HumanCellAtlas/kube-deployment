@@ -2,7 +2,7 @@ apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: mongo
-  namespace: dev-environment
+  namespace: "{{ .Values.namespace }}"
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     role: ingestion

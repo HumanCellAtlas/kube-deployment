@@ -1,3 +1,4 @@
-# Default values for mongo.
+# Default values for redis.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+namespace: provide_through_set_flag

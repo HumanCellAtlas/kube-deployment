@@ -1,12 +1,15 @@
+# Make a copy of this file in this directory and replace the variables with stub 'PROVIDE...' values
+
 #!/usr/bin/env bash
 set -a
 
 # Variables that change with each environment
-AWS_PROFILE=hca
-DEPLOYMENT_STAGE=dev
-TF_VAR_vpc_cidr_block=10.20.0.0/16
-TF_VAR_subnet_cidr_block_one=10.20.1.0/24
-TF_VAR_subnet_cidr_block_two=10.20.2.0/24
+AWS_PROFILE=PROVIDE_YOUR_OWN_VALUE
+DEPLOYMENT_STAGE=PROVIDE_YOUR_OWN_VALUE
+TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_IP_VALUE
+
+TF_VAR_subnet_cidr_block_one=PROVIDE_YOUR_OWN_VALUE
+TF_VAR_subnet_cidr_block_two=PROVIDE_YOUR_OWN_VALUE
 
 # Static variables between environments
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"

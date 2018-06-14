@@ -3,10 +3,10 @@ set -a
 
 # Variables that change with each environment
 AWS_PROFILE=hca
-DEPLOYMENT_STAGE=dev
-TF_VAR_vpc_cidr_block=10.20.0.0/16
-TF_VAR_subnet_cidr_block_one=10.20.1.0/24
-TF_VAR_subnet_cidr_block_two=10.20.2.0/24
+DEPLOYMENT_STAGE=integration
+TF_VAR_vpc_cidr_block=10.30.0.0/16
+TF_VAR_subnet_cidr_block_one=10.30.1.0/24
+TF_VAR_subnet_cidr_block_two=10.30.2.0/24
 
 # Static variables between environments
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"

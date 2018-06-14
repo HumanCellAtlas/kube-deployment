@@ -53,7 +53,7 @@ resource "aws_subnet" "ingest_eks" {
   count = 2
 
   availability_zone = "${var.availability_zones[count.index]}"
-  cidr_block        = "10.20.${count.index}.0/24"
+  cidr_block        = "10.30.${count.index}.0/24"
   vpc_id            = "${aws_vpc.ingest_eks.id}"
 
   tags = "${
@@ -206,7 +206,7 @@ resource "aws_iam_role_policy_attachment" "ingest_eks_node_AmazonEC2ContainerReg
 }
 
 resource "aws_iam_instance_profile" "ingest_eks_node" {
-  name = "terraform-eks-demo"
+  name = "terraform-eks-node-${var.deployment_stage}"
   role = "${aws_iam_role.ingest_eks_node.name}"
 }
 
@@ -309,7 +309,7 @@ resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.ingest_eks_node.name}"
   image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "m4.large"
+  instance_type               = "m4.xlarge"
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
   security_groups             = ["${aws_security_group.ingest_eks_node.id}"]
   user_data_base64            = "${base64encode(local.ingest-node-userdata)}"
@@ -452,4 +452,27 @@ TILLERACCOUNT
 
 output "tilleraccount" {
   value = "${local.tilleraccount}"
+}
+
+
+
+
+
+locals {
+  storageclass = <<STORAGECLASS
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: gp2
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+reclaimPolicy: Retain
+mountOptions:
+  - debug
+STORAGECLASS
+}
+
+output "storageclass" {
+  value = "${local.storageclass}"
 }

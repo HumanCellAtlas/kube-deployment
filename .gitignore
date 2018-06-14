@@ -60,12 +60,14 @@ fabric.properties
 
 /kubernetes-test.pem
 
+apps/ingest-auth/.terraform/
 terraform/apps/ingest-auth/.terraform
-terraform/eks/.terraform/
-kubernetes/cluster-secrets/
-kubernetes/dev
-kubernetes/integration
-kubernetes/staging
-kubernetes/prod
+infra/.terraform/
+config/cluster-secrets/
+infra/dev
+infra/integration
+infra/staging
+infra/prod
 config/.DS_Store
-terraform/.DS_Store
+infra/.DS_Store
+*.tgz
