@@ -53,7 +53,7 @@ resource "aws_subnet" "ingest_eks" {
   count = 2
 
   availability_zone = "${var.availability_zones[count.index]}"
-  cidr_block        = "10.30.${count.index}.0/24"
+  cidr_block        = "10.20.${count.index}.0/24"
   vpc_id            = "${aws_vpc.ingest_eks.id}"
 
   tags = "${
@@ -433,20 +433,20 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: tiller
-  namespace: ${var.deployment_stage}-environment
+  namespace: kube-system
 ---
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
 metadata:
-  name: tiller-clusterrolebinding
-subjects:
-- kind: ServiceAccount
   name: tiller
-  namespace: ${var.deployment_stage}-environment
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
-  apiGroup: ""
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system
 TILLERACCOUNT
 }
 

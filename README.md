@@ -14,16 +14,19 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 ## Access existing ingest eks cluster (aws)
 This step assumes you have the correct aws credentials and local environment tools set up correctly
 1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
-2. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
+2. `cd infra`
+3. `make retrieve-kubeconfig-ENVNAME' where ENVNAME is the name of the environment you are trying to access
+3. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
 
 ## How to access dashboard
-1. Run `source config/environment_ENVNAME` where ENVNAME is the name of the environment's dashboard you are trying to access
-2. Generate a token using the command:
+1. Make sure you have followed the steps above to access existing eks cluster
+2. Run `source config/environment_ENVNAME` where ENVNAME is the name of the environment's dashboard you are trying to access
+3. Generate a token using the command:
 	`kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
-3. Start the kubectl proxy:
+4. Start the kubectl proxy:
 	`kubectl proxy`
-4. Open the following link with a web browser to access the dashboard endpoint: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
-5. Choose Token, paste the token output from the previous command into the Token field, and choose SIGN IN.
+5. Open the following link with a web browser to access the dashboard endpoint: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+6. Choose Token, paste the token output from the previous command into the Token field, and choose SIGN IN.
 
 ## Create new ingest eks cluster (aws)
 These steps will set up a new ingest environment from scratch via terraform and will also apply all kubernetes monitoring and dashboard configs, RBAC role and aws auth setup.
@@ -36,7 +39,7 @@ These steps will set up a new ingest environment from scratch via terraform and 
 6. `cd infra`
 7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create
 8. Follow the steps to access the kubernetes dashboard. Once you see one active tiller pod in the environment namespace, continue to the next step.
-9. `make deploy-backend-services-ENVNAME` where ENVNAME is the name of the environment you are trying to create.
+9. Follow instructions below to deploy backend services and applications.
 
 ## Modify and deploy updated EKS and AWS infrastructure
 Coming soon
@@ -52,16 +55,25 @@ These steps will bring down the entire infrastructure and all the resources for 
 # Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
 
 ## Install backend services (mongo, redis, rabbit)
-Coming Soon
+1. Make sure you have followed all the instructions to create a cluster
+2. `cd infra`
+2. `make deploy-backend-services-ENVNAME` where ENVNAME is the name of the environment you are trying to create.
 
 ## Upgrade backend services (mongo, redis, rabbit)
 Coming soon
 
-# Deploy and Upgrade Core Ingest Applications
+# Deploy and Upgrade Ingest Applications
 
-Core Applications:
+## Deploy one kubernetes dockerized applications to an environment (aws)
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+3. `cd apps`
+4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
-## Deploy one or all kubernetes dockerized applications (aws)
+## Create helm chart for new ingest application
+Coming soon
+
+## Deploy all kubernetes dockerized applications to an environment (aws)
 Coming soon
 
 ## Deploy ingest auth lambda application (aws)

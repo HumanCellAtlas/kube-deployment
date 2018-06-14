@@ -3,7 +3,21 @@
 #!/usr/bin/env bash
 set -a
 
-# Variables that change with each environment
+# Set this to TRUE if this environment uses branch tags and you want to force refresh helm deployments to kubernetes. 
+# Set to FALSE if you are using tags.
+FORCE_REFRESH_PODS=TRUE
+
+# Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
+INGEST_ACCESSIONER_VERSION=PROVIDE_IMAGE_OR_BRANCH_NAME
+INGEST_BROKER_VERSION=PROVIDE_IMAGE_NAME
+INGEST_CORE_VERSION=PROVIDE_IMAGE_NAME
+INGEST_EXPORTER_VERSION=PROVIDE_IMAGE_NAME
+INGEST_ONTOLOGY_VERSION=PROVIDE_IMAGE_NAME
+INGEST_STAGING_MANAGER_VERSION=PROVIDE_IMAGE_NAME
+INGEST_STATE_TRACKING_VERSION=PROVIDE_IMAGE_NAME
+INGEST_VALIDATOR_VERSION=PROVIDE_IMAGE_NAME
+
+# Variables that change with each environment. Once set for an environment they should not change.
 AWS_PROFILE=PROVIDE_YOUR_OWN_VALUE
 DEPLOYMENT_STAGE=PROVIDE_YOUR_OWN_VALUE
 TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_IP_VALUE
@@ -11,10 +25,10 @@ TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_IP_VALUE
 TF_VAR_subnet_cidr_block_one=PROVIDE_YOUR_OWN_VALUE
 TF_VAR_subnet_cidr_block_two=PROVIDE_YOUR_OWN_VALUE
 
-# Static variables between environments
+# Static variables between environments. These should never change
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 KUBECONFIG=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
-TILLER_NAMESPACE=${DEPLOYMENT_STAGE}-environment
+TILLER_NAMESPACE=kube-system
 TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
 TF_VAR_aws_profile=${AWS_PROFILE}
 TF_VAR_deployment_stage=${DEPLOYMENT_STAGE}
