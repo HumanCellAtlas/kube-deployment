@@ -1,0 +1,5 @@
+# Default values for ingest-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+environment: provide_through_set_flag
+image: provide_through_set_flag

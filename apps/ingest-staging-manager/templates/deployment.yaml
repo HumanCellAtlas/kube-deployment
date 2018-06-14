@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-staging-manager
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: 10
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ingest-staging-manager
+    spec:
+      containers:
+      - env:
+        - name: INGEST_API
+          value: http://api.ingest.{{ .Values.environment }}.data.humancellatlas.org:80
+        - name: RABBIT_URL
+          value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+        - name: STAGING_API
+          value: https://upload.{{ .Values.environment }}.data.humancellatlas.org
+        - name: INGEST_API_KEY
+          valueFrom:
+            secretKeyRef:
+              key: staging-api-key
+              name: api-keys
+        image: quay.io/humancellatlas/ingest-staging-manager:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-staging-manager
