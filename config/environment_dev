@@ -15,14 +15,13 @@ INGEST_STAGING_MANAGER_VERSION=master
 INGEST_STATE_TRACKING_VERSION=master
 INGEST_VALIDATOR_VERSION=master
 
-# Variables that are different for each environment but should not change
+# Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
-DEPLOYMENT_STAGE=dev
 TF_VAR_vpc_cidr_block=10.20.0.0/16
-TF_VAR_subnet_cidr_block_one=10.20.1.0/24
-TF_VAR_subnet_cidr_block_two=10.20.2.0/24
 
-# Static variables between environments. These should never change
+#VARIABLES BELOW SHOULD NEVER CHANGE.
+FILE_NAME=$(basename $BASH_SOURCE)
+DEPLOYMENT_STAGE=${FILE_NAME#*_}
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
 KUBECONFIG=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
 TILLER_NAMESPACE=kube-system

@@ -2,24 +2,27 @@
 
 Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
 
-## Set up local environment to access existing clusters
+## Set up local environment
 1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
 2. Install terraform: `brew install terraform` or Instructions found at https://www.terraform.io/intro/getting-started/install.html.
 3. Install awscli: `pip install awscli`.
 4. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
-5. Install helm: `brew install kubernetes-helm` or instructions found at https://github.com/kubernetes/helm.
+5. Install kubectl: `brew install kubernetes-cli`
+6. Install kubectx (kubens included): `brew install kubectx`
+7. Install helm: `brew install kubernetes-helm` or instructions found at https://github.com/kubernetes/helm.
 
 # Access/Create/Modify/Destroy EKS Clusters
 
 ## Access existing ingest eks cluster (aws)
-This step assumes you have the correct aws credentials and local environment tools set up correctly
+These steps assumes you have the correct aws credentials and local environment tools set up correctly
 1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
 2. `cd infra`
-3. `make retrieve-kubeconfig-ENVNAME' where ENVNAME is the name of the environment you are trying to access
+3. `make retrieve-kubeconfig-ENVNAME` where ENVNAME is the name of the environment you are trying to access
+4. `helm init --service-account tiller`
 3. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
 
 ## How to access dashboard
-1. Make sure you have followed the steps above to access existing eks cluster
+1. Make sure you have followed the steps to access an existing ingest eks cluster
 2. Run `source config/environment_ENVNAME` where ENVNAME is the name of the environment's dashboard you are trying to access
 3. Generate a token using the command:
 	`kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
@@ -33,7 +36,7 @@ These steps will set up a new ingest environment from scratch via terraform and 
 1. Make sure you have set up your local environment and have the appropriate tools from above
 2. `cp config/environment_template config/environment_ENVNAME` where envname should reflect the name of the environment you are trying to create.
 3. Replace all values marked as 'PROVIDE...' with the appropriate value
-4. Ensure the aws profile name in this config is mapped to the name of the aws profile in your ~/.aws/ path that has admin access to the relevant aws account.
+4. Ensure the aws profile name in this config is mapped to the name of the aws profile in your ~/.aws/config or ~/.aws/credentials/ path that has admin access to the relevant aws account.
 5. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
 6. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
 6. `cd infra`

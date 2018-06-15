@@ -53,7 +53,7 @@ resource "aws_subnet" "ingest_eks" {
   count = 2
 
   availability_zone = "${var.availability_zones[count.index]}"
-  cidr_block        = "10.20.${count.index}.0/24"
+  cidr_block        = "${cidrhost(var.vpc_cidr_block, 256 * (count.index + 1))}/24"
   vpc_id            = "${aws_vpc.ingest_eks.id}"
 
   tags = "${
