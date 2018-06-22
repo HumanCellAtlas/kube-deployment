@@ -316,7 +316,7 @@ resource "aws_launch_configuration" "ingest_eks" {
 }
 
 resource "aws_autoscaling_group" "ingest_eks" {
-  desired_capacity     = 3
+  desired_capacity     = 2
   launch_configuration = "${aws_launch_configuration.ingest_eks.id}"
   max_size             = 4
   min_size             = 2

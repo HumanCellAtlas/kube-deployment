@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -a
+
+# Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
+USES_BRANCHES=TRUE
+
+INGEST_ACCESSIONER_VERSION=integration
+INGEST_BROKER_VERSION=integration
+INGEST_CORE_VERSION=integration
+INGEST_EXPORTER_VERSION=integration
+INGEST_STAGING_MANAGER_VERSION=integration
+INGEST_STATE_TRACKING_VERSION=integration
+INGEST_VALIDATOR_VERSION=integration
+ONTOLOGY_VERSION=master
+
+# Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
+AWS_PROFILE=hca
+# Make sure the vpc ip below is unique
+TF_VAR_vpc_cidr_block=10.50.0.0/16
+
+
+
+
+
+#VARIABLES BELOW SHOULD NEVER CHANGE.
+FILE_NAME=$(basename $BASH_SOURCE)
+DEPLOYMENT_STAGE=${FILE_NAME#*_}
+PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )"/.. && pwd )"
+KUBECONFIG=$PROJECT_ROOT/config/cluster-secrets/kubeconfig_${DEPLOYMENT_STAGE}
+TILLER_NAMESPACE=kube-system
+TF_VAR_terraform_key=ingest/eks-${DEPLOYMENT_STAGE}.tfstate
+TF_VAR_aws_profile=${AWS_PROFILE}
+TF_VAR_deployment_stage=${DEPLOYMENT_STAGE}
+TF_VAR_account_id=$(aws sts get-caller-identity --profile ${AWS_PROFILE} | jq -r .Account)
+TF_VAR_aws_region=us-east-1
+TF_VAR_terraform_bucket=org-humancellatlas-${TF_VAR_account_id}-terraform
+
+set +a
+
