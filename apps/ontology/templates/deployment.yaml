@@ -4,7 +4,7 @@ metadata:
   annotations: {}
   labels:
     role: ingestion
-  name: ingest-ontology
+  name: ontology
   namespace: {{ .Values.environment }}-environment
 spec:
   replicas: 1
@@ -13,10 +13,10 @@ spec:
   template:
     metadata:
       labels:
-        app: ingest-ontology
+        app: ontology
     spec:
       containers:
-      - image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
+      - image: quay.io/humancellatlas/ontology:{{ .Values.image }}
         imagePullPolicy: Always
         name: ontology
         ports:

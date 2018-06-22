@@ -3,7 +3,7 @@ ingest-accessioner = ${INGEST_ACCESSIONER_VERSION}
 ingest-broker = ${INGEST_BROKER_VERSION}
 ingest-core = ${INGEST_CORE_VERSION}
 ingest-exporter = ${INGEST_EXPORTER_VERSION}
-ingest-ontology = ${INGEST_ONTOLOGY_VERSION}
+ontology = ${ONTOLOGY_VERSION}
 ingest-staging-manager = ${INGEST_STAGING_MANAGER_VERSION}
 ingest-state-tracking=${INGEST_STATE_TRACKING_VERSION}
 ingest-validator=${INGEST_VALIDATOR_VERSION}
@@ -15,6 +15,7 @@ deploy-app-%:
 	rm *.tgz
 
 deploy-secrets:
+	# retrieve secrets from aws secrets manager
 	. ../config/environment_$(deployment-stage) && helm upgrade secrets secrets  --set environment=$(deployment-stage) --force --install
 
 deploy-apps:
@@ -22,10 +23,10 @@ deploy-apps:
 	$(MAKE) deploy-app-ingest-accessioner
 	$(MAKE) deploy-app-ingest-broker
 	$(MAKE) deploy-app-ingest-exporter
-	$(MAKE) deploy-app-ingest-ontology
 	$(MAKE) deploy-app-ingest-staging-manager
 	$(MAKE) deploy-app-ingest-state-tracking
 	$(MAKE) deploy-app-ingest-validator
+	$(MAKE) deploy-app-ontology
 	# $(MAKE) deploy-ingest-auth
 
 deploy-all:
