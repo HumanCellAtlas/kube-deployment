@@ -1,23 +1,24 @@
 #!/usr/bin/env bash
 set -a
 
-# Set this to TRUE if this environment uses branch tags and you want to force refresh helm deployments to kubernetes. 
-# Set to FALSE if you are using tags.
-FORCE_REFRESH_PODS=TRUE
-
 # Versions of applications deployed. Either a branch or a tag that corresponds with an image in quay is accepted.
-INGEST_ACCESSIONER_VERSION=master
-INGEST_BROKER_VERSION=master
-INGEST_CORE_VERSION=master
-INGEST_EXPORTER_VERSION=master
-INGEST_ONTOLOGY_VERSION=master
-INGEST_STAGING_MANAGER_VERSION=master
-INGEST_STATE_TRACKING_VERSION=master
-INGEST_VALIDATOR_VERSION=master
+INGEST_ACCESSIONER_BRANCH=master
+INGEST_BROKER_BRANCH=master
+INGEST_CORE_BRANCH=master
+INGEST_EXPORTER_BRANCH=master
+INGEST_ONTOLOGY_BRANCH=master
+INGEST_STAGING_MANAGER_BRANCH=master
+INGEST_STATE_TRACKING_BRANCH=master
+INGEST_VALIDATOR_BRANCH=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
-TF_VAR_vpc_cidr_block=10.20.0.0/16
+# Make sure the vpc ip below is unique
+TF_VAR_vpc_cidr_block=10.40.0.0/16
+
+
+
+
 
 #VARIABLES BELOW SHOULD NEVER CHANGE.
 FILE_NAME=$(basename $BASH_SOURCE)
@@ -31,5 +32,14 @@ TF_VAR_deployment_stage=${DEPLOYMENT_STAGE}
 TF_VAR_account_id=$(aws sts get-caller-identity --profile ${AWS_PROFILE} | jq -r .Account)
 TF_VAR_aws_region=us-east-1
 TF_VAR_terraform_bucket=org-humancellatlas-${TF_VAR_account_id}-terraform
+
+INGEST_ACCESSIONER_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-accessioner/git/refs/heads/${INGEST_ACCESSIONER_BRANCH} | jq '.object.sha')
+INGEST_BROKER_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-broker/git/refs/heads/${INGEST_BROKER_BRANCH} | jq '.object.sha')
+INGEST_CORE_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-core/git/refs/heads/${INGEST_CORE_BRANCH} | jq '.object.sha')
+INGEST_EXPORTER_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-exporter/git/refs/heads/${INGEST_EXPORTER_BRANCH} | jq '.object.sha')
+INGEST_ONTOLOGY_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-ontology/git/refs/heads/${INGEST_ONTOLOGY_BRANCH} | jq '.object.sha')
+INGEST_STAGING_MANAGER_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-staging-manager/git/refs/heads/${INGEST_STAGING_MANAGER_BRANCH} | jq '.object.sha')
+INGEST_STATE_TRACKING_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-state-tracking/git/refs/heads/${INGEST_STATE_TRACKING_BRANCH} | jq '.object.sha')
+INGEST_VALIDATOR_VERSION=$(curl https://api.github.com/repos/HumanCellAtlas/ingest-validator/git/refs/heads/${INGEST_VALIDATOR_BRANCH} | jq '.object.sha')
 
 set +a

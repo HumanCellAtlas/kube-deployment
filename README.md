@@ -73,13 +73,13 @@ Coming soon
 3. `cd apps`
 4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
 
-## Create helm chart for new ingest application
-Coming soon
-
 ## Deploy all kubernetes dockerized applications to an environment (aws)
-Coming soon
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+3. `cd apps`
+4. `make deploy-apps` where APPNAME is the name of the ingest application.
 
-## Deploy ingest auth lambda application (aws)
+## Create helm chart for new ingest application
 Coming soon
 
 # CI/CD Setup

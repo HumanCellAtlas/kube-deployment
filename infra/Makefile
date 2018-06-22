@@ -9,7 +9,8 @@ create-cluster-%:
 	$(MAKE) retrieve-kubeconfig-$(*)
 	$(MAKE) apply-dashboard-configs-$(*)
 	$(MAKE) apply-env-configs-$(*)
-	. ../config/environment_$(*) && helm init --service-account tiller
+	. ../config/environment_$(*) && helm init --service-account tiller --wait
+	$(MAKE) deploy-backend-services-$(*)
 
 deploy-backend-services-%:
 	# Add User confirmation of action and environment here and then apply -auto-confirm flag on terraform
@@ -24,6 +25,7 @@ modify-cluster-%:
 destroy-cluster-%:
 	# Add User confirmation of action here and then apply -auto-confirm flag on terraform
 	$(MAKE) init-$(*)
+	. ../config/environment_$(*) && helm ls --all --short | xargs -L1 helm delete --purge
 	. ../config/environment_$(*) && terraform destroy
 
 retrieve-kubeconfig-%:
@@ -51,7 +53,7 @@ apply-env-configs-%:
 
 install-infra-helm-chart-%:
 	cd helm-charts && helm package $(*)
-	. ../config/environment_$(deployment_stage) && cd helm-charts && helm install --set namespace=$(deployment_stage)-environment $(*)
+	. ../config/environment_$(deployment_stage) && cd helm-charts && helm install --name $(*) --set namespace=$(deployment_stage)-environment $(*)
 	cd helm-charts && rm *.tgz
 
 apply-dashboard-configs-%:

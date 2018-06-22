@@ -8,10 +8,6 @@ variable "account_id" {}
 
 variable "vpc_cidr_block" {}
 
-variable "subnet_cidr_block_one" {}
-
-variable "subnet_cidr_block_two" {}
-
 variable "availability_zones" {
   default = [
     "us-east-1a",
@@ -292,7 +288,7 @@ INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
 sed -i s,MASTER_ENDPOINT,${aws_eks_cluster.ingest_eks.endpoint},g /var/lib/kubelet/kubeconfig
 sed -i s,CLUSTER_NAME,ingest-eks-${var.deployment_stage},g /var/lib/kubelet/kubeconfig
 sed -i s,REGION,${data.aws_region.current.name},g /etc/systemd/system/kubelet.service
-sed -i s,MAX_PODS,20,g /etc/systemd/system/kubelet.service
+sed -i s,MAX_PODS,58,g /etc/systemd/system/kubelet.service
 sed -i s,MASTER_ENDPOINT,${aws_eks_cluster.ingest_eks.endpoint},g /etc/systemd/system/kubelet.service
 sed -i s,INTERNAL_IP,$INTERNAL_IP,g /etc/systemd/system/kubelet.service
 DNS_CLUSTER_IP=10.100.0.10
@@ -309,7 +305,7 @@ resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.ingest_eks_node.name}"
   image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "m4.xlarge"
+  instance_type               = "m5.xlarge"
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
   security_groups             = ["${aws_security_group.ingest_eks_node.id}"]
   user_data_base64            = "${base64encode(local.ingest-node-userdata)}"
@@ -322,8 +318,8 @@ resource "aws_launch_configuration" "ingest_eks" {
 resource "aws_autoscaling_group" "ingest_eks" {
   desired_capacity     = 2
   launch_configuration = "${aws_launch_configuration.ingest_eks.id}"
-  max_size             = 2
-  min_size             = 1
+  max_size             = 4
+  min_size             = 2
   name                 = "ingest-eks-${var.deployment_stage}"
   vpc_zone_identifier  = ["${aws_subnet.ingest_eks.*.id}"]
 

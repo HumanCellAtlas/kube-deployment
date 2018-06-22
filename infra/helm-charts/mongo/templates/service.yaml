@@ -7,7 +7,6 @@ metadata:
     role: ingestion
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    app: {{ template "mongo.name" . }}
     chart: {{ template "mongo.chart" . }}
   name: mongo-service
 spec:
@@ -17,6 +16,5 @@ spec:
     targetPort: 27017
   selector:
     app: mongo
-    release: {{ .Release.Name }}
   sessionAffinity: None
   type: ClusterIP

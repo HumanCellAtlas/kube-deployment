@@ -16,7 +16,7 @@ spec:
         app: ingest-ontology
     spec:
       containers:
-      - image: quay.io/humancellatlas/ontology:{{ .Values.environment }}
+      - image: quay.io/humancellatlas/ingest-exporter:{{ .Values.image }}
         imagePullPolicy: Always
         name: ontology
         ports:
