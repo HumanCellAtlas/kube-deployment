@@ -353,13 +353,13 @@ clusters:
 contexts:
 - context:
     cluster: ingest-eks-${var.deployment_stage}
-    user: aws
+    user: ingest-eks-${var.deployment_stage}
   name: ingest-eks-${var.deployment_stage}
 current-context: ingest-eks-${var.deployment_stage}
 kind: Config
 preferences: {}
 users:
-- name: aws
+- name: ingest-eks-${var.deployment_stage}
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1

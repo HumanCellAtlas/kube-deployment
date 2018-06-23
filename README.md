@@ -14,22 +14,21 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 # Access/Create/Modify/Destroy EKS Clusters
 
 ## Access existing ingest eks cluster (aws)
-These steps assumes you have the correct aws credentials and local environment tools set up correctly
+These steps assumes you have the correct aws credentials and local environment tools set up correctly. This only has to be run one time.
 1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
 2. `cd infra`
 3. `make retrieve-kubeconfig-ENVNAME` where ENVNAME is the name of the environment you are trying to access
-4. `helm init --service-account tiller`
-3. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
+4. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
 
 ## How to access dashboard
-1. Make sure you have followed the steps to access an existing ingest eks cluster
-2. Run `source config/environment_ENVNAME` where ENVNAME is the name of the environment's dashboard you are trying to access
-3. Generate a token using the command:
-	`kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
-4. Start the kubectl proxy:
+1. `kubectx ingest-eks-ENVNAME` where ENVNAME is the name of the cluster environment you are trying to access
+2. Generate token:
+	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
+3. Start the proxy:
 	`kubectl proxy`
-5. Open the following link with a web browser to access the dashboard endpoint: http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
-6. Choose Token, paste the token output from the previous command into the Token field, and choose SIGN IN.
+4. Open the following link with a web browser to access the dashboard endpoint:
+	`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+5. Choose Token, paste token from step 2 above
 
 ## Create new ingest eks cluster (aws)
 These steps will set up a new ingest environment from scratch via terraform and will also apply all kubernetes monitoring and dashboard configs, RBAC role and aws auth setup.

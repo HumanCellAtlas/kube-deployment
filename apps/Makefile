@@ -9,16 +9,19 @@ ingest-state-tracking=${INGEST_STATE_TRACKING_VERSION}
 ingest-validator=${INGEST_VALIDATOR_VERSION}
 
 deploy-app-%:
+	$(MAKE) set-context
 	helm package $(*)
 	#call to github api, pass this in to deploy if its a branch (ie force deploy)
 	. ../config/environment_$(deployment-stage) && helm upgrade $(*) $(*)  --set environment=$(deployment-stage),image=$($(*)) --force --install
 	rm *.tgz
 
 deploy-secrets:
+	$(MAKE) set-context
 	# retrieve secrets from aws secrets manager
 	. ../config/environment_$(deployment-stage) && helm upgrade secrets secrets  --set environment=$(deployment-stage) --force --install
 
 deploy-apps:
+	$(MAKE) set-context
 	$(MAKE) deploy-app-ingest-core
 	$(MAKE) deploy-app-ingest-accessioner
 	$(MAKE) deploy-app-ingest-broker
@@ -30,5 +33,10 @@ deploy-apps:
 	# $(MAKE) deploy-ingest-auth
 
 deploy-all:
+	$(MAKE) set-context
 	$(MAKE) deploy-secrets
 	$(MAKE) deploy-apps
+
+set-context:
+	kubectx ingest-eks-$(deployment-stage)
+	kubens $(deployment-stage)-environment

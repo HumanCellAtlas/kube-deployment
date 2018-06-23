@@ -1,5 +1,5 @@
 deployment_stage = ${DEPLOYMENT_STAGE}
-
+kubeconfig_path=${KUBECONFIG_PATH}
 
 create-cluster-%:
 	# Add User confirmation of action and environment here and then apply -auto-confirm flag on terraform
@@ -20,7 +20,8 @@ deploy-backend-services-%:
 
 modify-cluster-%:
 	# Add User confirmation of environment and action here and then apply -auto-confirm flag on terraform
-	$(MAKE) create-cluster-%
+	$(MAKE) init-$(*)
+	. ../config/environment_$(*) && terraform apply
 
 destroy-cluster-%:
 	# Add User confirmation of action here and then apply -auto-confirm flag on terraform
@@ -33,7 +34,15 @@ retrieve-kubeconfig-%:
 	$(MAKE) init-$(*)
 	mkdir -p ../config/cluster-secrets/
 	terraform output kubeconfig > ../config/cluster-secrets/kubeconfig_$(*)
-	# KUBECONFIG=~/.kube/config:/../../kubernetes/cluster-secrets/kubeconfig_$(*) kubectl config view --flatten > ~/.kube/config
+	KUBECONFIG=~/.kube/config:$(kubeconfig_path) kubectl config view --flatten > mergedkub && mv mergedkub ~/.kube/config
+	kubectx ingest-eks-$(*)
+	kubens $(*)-environment
+	helm init --service-account tiller
+
+setup-dashboard-%:
+	kubectx ingest-eks-$(*)
+	kubens $(*)-environment
+	kubectl proxy
 
 apply-env-configs-%:
 	# confirm environment here
