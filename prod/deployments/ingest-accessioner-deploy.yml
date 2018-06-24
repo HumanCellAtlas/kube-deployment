@@ -7,7 +7,7 @@ metadata:
   name: ingest-accessioner
   namespace: prod-environment
 spec:
-  replicas: 20
+  replicas: 15
   template:
     metadata:
       labels:
@@ -23,5 +23,6 @@ spec:
           value: ingest.metadata.accession.queue
         - name: RABBITMQ_VALIDATION_QUEUE
           value: ingest.metadata.validation.queue
-        image: quay.io/humancellatlas/ingest-accessioner:v0.4.0.rc
+        image: quay.io/humancellatlas/ingest-accessioner:v0.4.0
         name: ingest-accessioner
+      dnsPolicy: Default

@@ -23,6 +23,8 @@ spec:
           value: ${RABBIT_SERVICE_SERVICE_HOST}
         - name: RABBIT_PORT
           value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+        - name: SCHEMA_BASE_URI
+          value: https://schema.humancellatlas.org/
         image: quay.io/humancellatlas/ingest-core:integration
         imagePullPolicy: Always
         name: ingest-core

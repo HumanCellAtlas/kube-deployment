@@ -28,6 +28,6 @@ spec:
             secretKeyRef:
               key: staging-api-key
               name: api-keys
-        image: quay.io/humancellatlas/ingest-staging-manager:v0.4.0.rc
+        image: quay.io/humancellatlas/ingest-staging-manager:v0.4.0
         imagePullPolicy: Always
         name: ingest-staging-manager
