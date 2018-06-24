@@ -1,71 +1,92 @@
 # Ingest Service Deployment
 
-Configuration files for deploying the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
+Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
+
+## Set up local environment
+1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
+2. Install terraform: `brew install terraform` or Instructions found at https://www.terraform.io/intro/getting-started/install.html.
+3. Install awscli: `pip install awscli`.
+4. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
+5. Install kubectl: `brew install kubernetes-cli`
+6. Install kubectx (kubens included): `brew install kubectx`
+7. Install helm: `brew install kubernetes-helm` or instructions found at https://github.com/kubernetes/helm.
+
+# Access/Create/Modify/Destroy EKS Clusters
+
+## Access existing ingest eks cluster (aws)
+These steps assumes you have the correct aws credentials and local environment tools set up correctly. This only has to be run one time.
+1. `source config/environment_ENVNAME` where ENVNAME is the name of the environment you are trying to access
+2. `cd infra`
+3. `make retrieve-kubeconfig-ENVNAME` where ENVNAME is the name of the environment you are trying to access
+4. `kubectl`, `kubens`, `kubectx`, and `helm` will now be tied to the cluster you have sourced in the step above.
+
+## How to access dashboard
+1. `kubectx ingest-eks-ENVNAME` where ENVNAME is the name of the cluster environment you are trying to access
+2. Generate token:
+	`kubectl -n kube-system describe secrets/$(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')`
+3. Start the proxy:
+	`kubectl proxy`
+4. Open the following link with a web browser to access the dashboard endpoint:
+	`http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+5. Choose Token, paste token from step 2 above
+
+## Create new ingest eks cluster (aws)
+These steps will set up a new ingest environment from scratch via terraform and will also apply all kubernetes monitoring and dashboard configs, RBAC role and aws auth setup.
+1. Make sure you have set up your local environment and have the appropriate tools from above
+2. `cp config/environment_template config/environment_ENVNAME` where envname should reflect the name of the environment you are trying to create.
+3. Replace all values marked as 'PROVIDE...' with the appropriate value
+4. Ensure the aws profile name in this config is mapped to the name of the aws profile in your ~/.aws/config or ~/.aws/credentials/ path that has admin access to the relevant aws account.
+5. Ensure the VPC IP in this config file is a valid and unique VPC IP value.
+6. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
+6. `cd infra`
+7. `make create-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to create
+8. Follow the steps to access the kubernetes dashboard. Once you see one active tiller pod in the environment namespace, continue to the next step.
+9. Follow instructions below to deploy backend services and applications.
+
+## Modify and deploy updated EKS and AWS infrastructure
+Coming soon
+
+## Destroy ingest eks cluster (aws)
+These steps will bring down the entire infrastructure and all the resources for your ingest kubernetes cluster and environment. This goes all the way up to the VPC that was created for this environment's cluster.
+1. Make sure you have set up your local environment and have the appropriate tools from above
+2. Follow setups 2-5 in 'Create new ingest eks cluster (aws)' if config/environment_ENVNAME does not exist where ENVNAME is the environment you are trying to destroy
+3. `source config/environment_ENVNAME` where ENVNAME reflects the name of the environment in the config file you created above
+4. `cd terraform/eks`
+5. `make destroy-cluster-ENVNAME` where ENVNAME is the name of the environment you are trying to destroy
+
+# Install and Upgrade Core Ingest Backend Services (mongo, redis, rabbit)
+
+## Install backend services (mongo, redis, rabbit)
+1. Make sure you have followed all the instructions to create a cluster
+2. `cd infra`
+2. `make deploy-backend-services-ENVNAME` where ENVNAME is the name of the environment you are trying to create.
+
+## Upgrade backend services (mongo, redis, rabbit)
+Coming soon
+
+# Deploy and Upgrade Ingest Applications
+
+## Deploy one kubernetes dockerized applications to an environment (aws)
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+3. `cd apps`
+4. `make deploy-app-APPNAME` where APPNAME is the name of the ingest application. For example, `make deploy-app-ingest-core`
+
+## Deploy all kubernetes dockerized applications to an environment (aws)
+1. Make sure you have followed the instructions above to create or access an existing eks cluster
+2. Change the branch or tag in `config/environment_ENVNAME` if needed where ENVNAME is the environment you are deploying to.
+3. `cd apps`
+4. `make deploy-apps` where APPNAME is the name of the ingest application.
+
+## Create helm chart for new ingest application
+Coming soon
+
+# CI/CD Setup
+
+## Promote one application environment configurations to another (ie dev => integration)
+Coming soon
+
+# Local Setup
 
 ## Local deployment with Minikube
-1. [Install Docker](https://docs.docker.com/engine/installation/)
-2. [Install Minikube and prerequisites](https://kubernetes.io/docs/tasks/tools/install-minikube/):
-    * [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
-    * [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-    * [Install Minikube](https://github.com/kubernetes/minikube/releases)
-3. Start the Minikube cluster: `minikube start`
-4. Set up a shell to use the Minikube docker-daemon: `eval $(minikube docker-env)`
-
-For the next steps there is a script that can be run: [setup.sh](setup.sh). This should call all the commands needed in order but has no error checking as yet.
-
-5. Clone and build each repository. `cd` into each and run `docker build -t <repository-name>:local .`
-    * ingest-core `docker build -t ingest-core:local .`
-    * ingest-broker `docker build -t ingest-demo:local .`
-    * ingest-accessioner `docker build -t ingest-accessioner:local .`
-    * ingest-validator `docker build -t ingest-validator:local .`
-    * ingest-exporter `docker build -t ingest-exporter:local .`
-    * ingest-staging-manager `docker build -t ingest-staging-manager:local .`    
-6. `cd` into ingest-kube-deployment/local-dev/ingestion
-7. Apply each of the kubernetes deployment config:
-    * First service-<*>-deploy.yml:
-        * `kubectl apply -f service-rabbit-deploy.yml`
-        * `kubectl apply -f service-mongo-deploy.yml`
-        * `kubectl apply -f service-ingest-core-deploy.yml`
-        * `kubectl apply -f service-ingest-demo-deploy.yml`
-    * Then:
-        * `kubectl apply -f rabbit-deploy.yml`
-        * `kubectl apply -f mongo-deploy.yml`
-    * Then ingest-<*>-deploy.yml:
-        * `kubectl apply -f ingest-core-deploy.yml`
-        * `kubectl apply -f ingest-demo-deploy.yml`
-        * `kubectl apply -f ingest-accessioner-deploy.yml`
-        * `kubectl apply -f ingest-validator-deploy.yml`
-        * `kubectl apply -f ingest-exporter-deploy.yml`
-        * `kubectl apply -f ingest-staging-manager-deploy.yml`
-8. Check with Minikube Dashboard `minikube dashboard`
-9. Confirm that the Ingestion Service submission API is accessible. Run `minikube service ingest-core-service --url` and browse to the /api endpoint on the returned URL
-10. Access the demo service Run `minikube service ingest-demo-service --url` and browse to the URL given
-
-### Modifying a component's source code and redeploying
-1. Run `./gradlew assemble` in the root of the source repository
-2. Run step 4 as above to ensure that the image is built into the Minikube registry
-3. Run `docker build -t <repository-name>:local -f localdevDockerfile .`
-4. Delete the current deployment if it is already running `kubectl delete deployment <deployment name>`
-5. Redeploy the component on kubernetes: `kubectl apply -f <component deploy yml config>`
-
-## Dev deployment (aws)
-1. Set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
-2. Once the cluster has been set up and verified, `cd` into kube-deployment/dev
-3. Apply the namespace configuration for the dev environment. `kubectl apply -f ingestion/dev-namespace.yml`
-4. `cd` into the secrets folder. Open `api-key-secrets.yml` in a text editor. Replace the placeholders with the relevant secret, base64 encoded: `echo -n mysecretpasssword | base64` .(NOTE: even if the secret is itself a base64 encoded string, it still needs to be base64 encoded again since kubernetes will attempt to base64 decode any secrets defined in this file). Apply the secret to the cluster with `kubectl apply -f api-key-secrets.yml`
-5. `cd` into kube-deployment/dev/ingestion.
-6. Apply each `service-....yml` file. `kubectl apply -f service-....yml`
-7. Apply the mongo and rabbit deployment configs. `kubectl apply -f mongo-deploy.yml`  `kubectl apply -f rabbit-deploy.yml`
-8. Apply each of the other ingest-...yml deployment configs. `kubectl apply -f ingest-...yml`
-
-## Staging deployment (aws)
-Similar to dev deployment. If a cluster has already been created using kops it can be reused for these steps.
-
-1. If not already setup, set up a kubernetes cluster on AWS using kops: [https://github.com/kubernetes/kops/blob/master/docs/aws.md](https://github.com/kubernetes/kops/blob/master/docs/aws.md)
-2. Once the cluster has been set up and verified, `cd` into kube-deployment/staging
-3. Apply the namespace configuration for the staging environment. `kubectl apply -f ingestion/staging-namespace.yml`
-4. `cd` into the secrets folder. Open `api-key-secrets.yml` in a text editor. Replace the placeholders with the relevant secret, base64 encoded: `echo -n mysecretpasssword | base64` (NOTE: even if the secret is itself a base64 encoded string, it still needs to be base64 encoded again since kubernetes will attempt to base64 decode any secrets defined in this file). Apply the secret to the cluster with `kubectl apply -f api-key-secrets.yml`
-5. `cd` into kube-deployment/staging/ingestion.
-6. Apply each `service-....yml` file. `kubectl apply -f service-....yml`
-7. Apply the mongo and rabbit deployment configs. `kubectl apply -f mongo-deploy.yml`  `kubectl apply -f rabbit-deploy.yml`
-8. Apply each of the other ingest-...yml deployment configs. `kubectl apply -f ingest-...yml`
+Coming soon
