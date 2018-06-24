@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-broker
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ingest-broker
+    spec:
+      containers:
+      - env:
+        - name: INGEST_API
+          value: http://api.ingest.{{ .Values.environment }}.data.humancellatlas.org:80
+        image: quay.io/humancellatlas/ingest-broker:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-broker
+        ports:
+        - containerPort: 5000
+      dnsPolicy: Default

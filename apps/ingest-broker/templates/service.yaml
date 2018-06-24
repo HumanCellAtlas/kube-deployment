@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-broker-service
+  namespace: {{ .Values.environment }}-environment
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: ingest-broker
+  sessionAffinity: None
+  type: LoadBalancer

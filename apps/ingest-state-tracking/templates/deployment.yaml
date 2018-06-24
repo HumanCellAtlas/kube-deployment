@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-state-tracking
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ingest-state-tracking
+    spec:
+      containers:
+      - env:
+        - name: RABBIT_HOST
+          value: ${RABBIT_SERVICE_SERVICE_HOST}
+        - name: RABBIT_PORT
+          value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+        - name: INGEST_API_ROOT
+          value: http://${INGEST_CORE_SERVICE_SERVICE_HOST}:${INGEST_CORE_SERVICE_SERVICE_PORT}
+        - name: UPDATER_PERIOD_SECONDS
+          value: "3"
+        - name: REDIS_HOST
+          value: ${REDIS_SERVICE_SERVICE_HOST}
+        - name: REDIS_PORT
+          value: ${REDIS_SERVICE_SERVICE_PORT}
+        image: quay.io/humancellatlas/ingest-state-tracking:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-state-tracking

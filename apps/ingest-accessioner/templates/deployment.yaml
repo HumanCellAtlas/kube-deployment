@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-accessioner
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: 15
+  template:
+    metadata:
+      labels:
+        app: ingest-accessioner
+    spec:
+      containers:
+      - env:
+        - name: INGEST_API
+          value: http://api.ingest.{{ .Values.environment }}.data.humancellatlas.org:80
+        - name: RABBIT_URL
+          value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
+        - name: RABBITMQ_ACCESSION_QUEUE
+          value: ingest.metadata.accession.queue
+        image: quay.io/humancellatlas/ingest-accessioner:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-accessioner
+      dnsPolicy: Default
