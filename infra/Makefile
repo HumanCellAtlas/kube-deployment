@@ -18,6 +18,7 @@ deploy-backend-services-%:
 	$(MAKE) install-infra-helm-chart-mongo
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
+	$(MAKE) install-infra-helm-chart-fluentd-cloudwatch
 
 modify-cluster-%:
 	# Add User confirmation of environment and action here and then apply -auto-confirm flag on terraform
