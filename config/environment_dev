@@ -18,6 +18,10 @@ AWS_PROFILE=hca
 # Make sure the vpc ip below is unique
 TF_VAR_vpc_cidr_block=10.40.0.0/16
 
+#Set values for node size and count
+TF_VAR_node_size="m5.xlarge"
+TF_VAR_node_count="2"
+
 
 
 

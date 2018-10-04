@@ -19,6 +19,10 @@ AWS_PROFILE=PROVIDE_YOUR_OWN_VALUE
 # Make sure the vpc ip below is unique
 TF_VAR_vpc_cidr_block=PROVIDE_UNIQUE_VPC_IP_VALUE
 
+#Set values for node size and count
+TF_VAR_node_size="m5.xlarge"
+TF_VAR_node_count="2"
+
 
 
 

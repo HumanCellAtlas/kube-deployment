@@ -8,6 +8,10 @@ variable "account_id" {}
 
 variable "vpc_cidr_block" {}
 
+variable "node_size" {}
+
+variable "node_count" {}
+
 variable "availability_zones" {
   default = [
     "us-east-1a",
@@ -305,10 +309,11 @@ resource "aws_launch_configuration" "ingest_eks" {
   associate_public_ip_address = true
   iam_instance_profile        = "${aws_iam_instance_profile.ingest_eks_node.name}"
   image_id                    = "${data.aws_ami.eks_worker.id}"
-  instance_type               = "m5.xlarge"
+  instance_type               = "${var.node_size}"
   name_prefix                 = "ingest-eks-${var.deployment_stage}"
   security_groups             = ["${aws_security_group.ingest_eks_node.id}"]
   user_data_base64            = "${base64encode(local.ingest-node-userdata)}"
+  key_name                    = "ingest-eks-${var.deployment_stage}"
 
   lifecycle {
     create_before_destroy = true
@@ -316,10 +321,10 @@ resource "aws_launch_configuration" "ingest_eks" {
 }
 
 resource "aws_autoscaling_group" "ingest_eks" {
-  desired_capacity     = 2
+  desired_capacity     = "${var.node_count}"
   launch_configuration = "${aws_launch_configuration.ingest_eks.id}"
   max_size             = 4
-  min_size             = 2
+  min_size             = "${var.node_count}"
   name                 = "ingest-eks-${var.deployment_stage}"
   vpc_zone_identifier  = ["${aws_subnet.ingest_eks.*.id}"]
 
