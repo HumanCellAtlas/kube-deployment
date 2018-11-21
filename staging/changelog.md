@@ -1,11 +1,23 @@
 # Staging Changelog
 
-## 19 October 2019
+## 21 November 2018
+* Validator v0.6.0.rc
+  - Deployment config change to make validator point to the latest fastq validator image (fastq_utils:v0.1.0.rc)
+
+* Staging Manager v0.5.3.rc
+  - Remove 10s wait when creating upload area
+  - Fix setting for retry policy, retrying for ~20min
+
+* Broker v0.8.4.rc
+  - Logging details
+  - Added fix to ensure that import doesn't fail due to erroneous max_row count
+
+## 19 October 2018
 * State Tracker V0.7.3.rc
   - Fixed bug determining the URI for persisted state machines
 
 * Exporter v0.7.5.rc
-  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bundle
 
 ## 17 October 2018
 * Broker v0.8.3.rc
