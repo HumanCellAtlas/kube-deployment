@@ -1,21 +1,54 @@
 # Staging Changelog
 
-## 19 October 2019
+## 12 December 2018
+
+* Broker v0.8.4.rc
+  - Fix to connection reset error during spreadsheet import
+  - Fix schema parsing, defaults to string if there is no items obj inside array field in schema
+  - Added fix to ensure that import doesn't fail due to erroneous max_row count
+  - Fixes to raising and logging error details
+
+* Exporter v0.7.6.rc
+  - Fix to DSS datetime version format
+  - DSS API Authentication
+  - More info on logs
+  - Deploy new exporter secrets
+
+* Validator v0.6.0.rc (same version)
+  - Deployment config change to make validator point to the latest fastq validator image (fastq_utils:v0.1.0.rc)
+
+* Staging Manager v0.5.3.rc
+  - Remove 10s wait when creating upload area
+  - Fix setting for retry policy, retrying for ~20min
+
+* Ontology
+  - Redeploying to pick up new ontology values
+
+## 24 October 2018
+
+* Core v0.7.7.rc
+  - simplified findByUuid
+
+## 19 October 2018
+
 * State Tracker V0.7.3.rc
   - Fixed bug determining the URI for persisted state machines
 
 * Exporter v0.7.5.rc
-  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bunlde
+  - Fix bug in analysis export, analysis bundles should reference same metadata file version from input bundle
 
 ## 17 October 2018
+
 * Broker v0.8.3.rc
   - Fixed bug whereby file metadata updates fail if a file is uploaded prior spreadsheet upload
 
 ## 16 October 2018
+
 * Core v0.7.6.rc
   - Lazy load biomaterial dbrefs
 
 ## 15 October 2018
+
 * Core v0.7.5.rc
   - Fix to slowdown cause by UUID generation
 
@@ -24,6 +57,7 @@
   - Ensuring envelopes go to the Cleanup state when more than the number of expected bundles are generated
 
 ## 11 October 2018
+
 * Core v0.7.4.rc
   - Logging when submission envelope is created and submitted
   - Optimization in finding assay processes for export
