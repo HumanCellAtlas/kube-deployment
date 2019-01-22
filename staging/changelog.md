@@ -1,5 +1,24 @@
 # Staging Changelog
 
+## 23 January 2019
+
+* Core v0.8.0.rc
+  - Expose API endpoints for rabbitmq communication
+  - Accept and verify JWT tokens from DCP Auth and GCP Service accounts
+  - Point to schema https urls
+
+* Exporter v0.7.7.rc
+  - Reporting export errors in submission envelope
+  - Remove unused schema env var in the exporter
+
+* Ontology
+  - Redeploying to pick up new ontology values
+
+* UI v0.5.3.rc
+  - Use DCP Auth (Fusillade) for Authentication
+  - Display submission errors
+  - Display commit hash build
+
 ## 12 December 2018
 
 * Broker v0.8.4.rc
