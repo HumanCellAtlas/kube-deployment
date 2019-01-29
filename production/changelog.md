@@ -1,5 +1,51 @@
 # Production Changelog
 
+## 29 January 2019
+* Core v0.8.0
+  - Expose API endpoints for rabbitmq communication
+  - Accept and verify JWT tokens from DCP Auth and GCP Service accounts
+  - Point to schema https urls
+
+* Exporter v0.7.7
+  - Reporting export errors in submission envelope
+  - Remove unused schema env var in the exporter
+
+* UI v0.5.3
+  - Use DCP Auth (Fusillade) for Authentication
+  - Display submission errors
+  - Display commit hash build
+
+
+## 08 January 2019
+
+* Exporter v0.7.6
+  - Fix to DSS datetime version format
+  - DSS API Authentication
+  - More info on logs
+  - Deploy new exporter secrets
+
+
+## 18 December 2018
+* Broker v0.8.4
+  - Fix to connection reset error during spreadsheet import
+  - Fix schema parsing, defaults to string if there is no items obj inside array field in schema
+  - Added fix to ensure that import doesn't fail due to erroneous max_row count
+  - Fixes to raising and logging error details
+
+* Validator v0.6.0 (same version)
+  - Config change: Point to the latest fastq validator image (fastq_utils:v0.1.0.rc) when requesting fastq validation jobs from the upload validation service
+
+* Staging Manager v0.5.3
+  - Remove 10s wait when creating upload area
+Fix setting for retry policy, retrying for ~20min
+
+* State-tracking v0.7.4
+  - Addressed bug where a deleted state machine would be stored as null in the Redis database
+
+* Ontology
+  - Redeploying to pick up new ontology values
+
+
 ## 29 October 2018
 * Core v0.7.7
   - Use indexing when finding files by UUID
