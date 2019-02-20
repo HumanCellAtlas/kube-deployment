@@ -31,7 +31,9 @@ spec:
           value: $(INGEST_STATE_TRACKING_SERVICE_SERVICE_PORT)
         - name: GCP_PROJECT_WHITELIST
           value: "hca-dcp-pipelines-prod.iam.gserviceaccount.com,hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com" 
-        - name: AUTH_AUDIENCE
+        - name: SVC_AUTH_AUDIENCE
+          value: https://data.humancellatlas.org/
+        - name: USR_AUTH_AUDIENCE
           value: https://dev.data.humancellatlas.org/
         - name: AUTH_ISSUER
           value: https://humancellatlas.auth0.com/
