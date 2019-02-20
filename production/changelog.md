@@ -1,6 +1,6 @@
 # Production Changelog
 
-## 13 February 2019
+## 20 February 2019
 
 * Core v0.8.2
   - Added submission envelope field to track number of expected links/edges in the metadata graph
