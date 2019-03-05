@@ -1,5 +1,14 @@
 # Production Changelog
 
+## 05 March 2019
+
+* Broker 37e15b8:v0.8.7
+  - Bug fixes in the importer: trailing space and number field conversion
+
+* UI 987aaf7:v0.5.4
+  - Show linking progress in the UI
+  - Upgrade to component versions
+
 ## 20 February 2019
 
 * Core v0.8.3
