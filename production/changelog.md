@@ -1,5 +1,11 @@
 # Production Changelog
 
+## 06 March 2019
+
+* UI 4f3615c:v0.5.5 (hotfix)
+  - Fix production configuration
+  - Fix compilation errors for prod build due to Angular version upgrade
+
 ## 05 March 2019
 
 * Broker 37e15b8:v0.8.7
