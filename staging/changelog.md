@@ -1,6 +1,6 @@
 # Staging Changelog
 
-## 13 March 2019
+## 13 March 2019 (FUTURE)
 
 * Ingress
   - Redeploy to enable http -> https redirects to Ingest endpoints
@@ -10,7 +10,7 @@
 
 ## 06 March 2019
 
-* Broker 704e5a7v0.8.8.rc 
+* Broker 704e5a7:v0.8.8.rc 
   - minor fix to code
 * Core  f7e85be:v0.8.4.rc
   - authentication related security related patches
