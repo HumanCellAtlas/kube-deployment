@@ -2,17 +2,44 @@
 
 ## 13 March 2019
 
+* Core 3bd05d0:v0.8.5.rc
+  - Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
+  - Log INFO messages
+  - Changes in validation messages
+  - Find by validation ID using the ID of the validation job
+  - Always setting to DRAFT when updating a file's cloudUrl/checksums
+
+* Validator f512fd8:v0.6.1.rc
+  - Bug fix validating files which do not trigger job
+  - Utilizing jobCompleted flag, handling errors
+  - Refactored caching/fetching compiled schemas
+  - Asserting that a file has not already been validated prior to attempting file validation
+  - Added methods in ingest-client for fetching file checksum info
+  - Refactoring: added UploadClient for handling communication with upload service
+  - Refactored logic for throwing non-retryable errors
+  - Stashing: initial fastq validation module implementation for determing pairedness
+  - Bug fix when refusing to validate File resources with no content/metadata
+  - Typescript related changes
+  - Removed unused files
+  - Configurable maxSockets/Connections to the ingest-core
+  - Security patches
+  - Limiting number of sockets, throwing errors if state to transition to already set
+  - Targetting a newer version of the fastq validation image
+
 * Ingress
   - Redeploy to enable http -> https redirects to Ingest endpoints
 
 * RabbitMQ
   - Redeploy to restrict access
 
+* Mongo
+  - Delete validation id index in File collection
+
 ## 06 March 2019
 
 * Broker 704e5a7v0.8.8.rc 
   - minor fix to code
-* Core  f7e85be:v0.8.4.rc
+* Core f7e85be:v0.8.4.rc
   - authentication related security related patches
 
 
