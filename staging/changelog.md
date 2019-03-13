@@ -1,6 +1,6 @@
 # Staging Changelog
 
-## 13 March 2019
+## 13 March 2019 (FUTURE)
 
 * Core 3bd05d0:v0.8.5.rc
   - Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
@@ -37,7 +37,7 @@
 
 ## 06 March 2019
 
-* Broker 704e5a7v0.8.8.rc 
+* Broker 704e5a7:v0.8.8.rc 
   - minor fix to code
 * Core f7e85be:v0.8.4.rc
   - authentication related security related patches

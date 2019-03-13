@@ -1,5 +1,12 @@
 # Production Changelog
 
+## 12 March 2019
+
+* Broker v0.8.8 
+  - minor fix to code
+* Core  v0.8.4
+  - authentication related security related patches
+
 ## 06 March 2019
 
 * UI 4f3615c:v0.5.5 (hotfix)

@@ -17,6 +17,7 @@ deploy-backend-services-%:
 	$(MAKE) install-infra-helm-chart-mongo
 	$(MAKE) install-infra-helm-chart-rabbit
 	$(MAKE) install-infra-helm-chart-redis
+	$(MAKE) setup-ingress-$(*)
 	# $(MAKE) install-infra-helm-chart-fluentd-cloudwatch
 
 modify-cluster-%:
@@ -64,7 +65,7 @@ apply-env-configs-%:
 	rm -rf $(*)
 
 install-infra-helm-chart-%:
-	cd helm-charts && helm package $(*)
+	cd helm-charts && helm dependency update $(*) && helm package $(*)
 	. ../config/environment_$(deployment_stage) && cd helm-charts && helm upgrade $(*) $(*) --set namespace=$(deployment_stage)-environment --force --install
 	cd helm-charts && rm *.tgz
 
@@ -73,10 +74,10 @@ apply-dashboard-configs-%:
 	$(MAKE) set-context-$(*)
 	. ../config/environment_$(*) && kubectl apply -f dashboard-configs/
 
-setup-ingress:
-	$(MAKE) set-context
-	helm dependency update ingress
-	helm upgrade -f ingress/values.yaml -f ingress/$(deployment-stage).yaml ingress ./ingress --force --wait --install
+setup-ingress-%:
+	$(MAKE) set-context-$(*)
+	cd helm-charts && helm dependency update ingress
+	cd helm-charts && helm upgrade -f ingress/values.yaml -f ingress/$(*).yaml ingress ./ingress --force --wait --install
 
 init-%:
 	# confirm environment here
