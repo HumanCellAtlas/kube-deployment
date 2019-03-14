@@ -25,7 +25,7 @@
   - Redeploy to restrict access
 
 * Mongo
-  - Delete validation id index in File collection
+  - Delete validationId index in File collection `db.file.dropIndex("validationId")`
 
 ## 06 March 2019
 
