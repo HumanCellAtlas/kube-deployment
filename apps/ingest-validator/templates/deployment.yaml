@@ -16,6 +16,8 @@ spec:
       dnsPolicy: Default
       containers:
       - env:
+        - name: INGEST_SCHEME
+          value: "http"
         - name: INGEST_HOST
           value: $(INGEST_CORE_SERVICE_SERVICE_HOST)
         - name: INGEST_PORT
