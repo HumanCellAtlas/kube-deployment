@@ -1,1 +1,0 @@
-Ingest-core powered by helm charts

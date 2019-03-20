@@ -29,9 +29,9 @@ spec:
         - name: RABBIT_URL
           value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: STAGING_API
-          value: https://upload.{{ .Values.environment }}.data.humancellatlas.org
+          value: https://{{ .Values.upload }}
         - name: DSS_API
-          value: https://dss.{{ .Values.environment }}.data.humancellatlas.org
+          value: https://{{ .Values.dss }}
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: "/etc/secrets/dss-auth-jwt.json"
         - name: INGEST_API_KEY

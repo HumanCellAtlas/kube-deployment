@@ -1,0 +1,9 @@
+upload: upload.data.humancellatlas.org
+dss: dss.data.humancellatlas.org
+schema: schema.data.humancellatlas.org
+ingest: api.ingest.data.humancellatlas.org
+
+# config values
+gcpProjectWhitelist: "hca-dcp-pipelines-prod.iam.gserviceaccount.com,hca-dcp-production.iam.gserviceaccount.com"
+svcAuthAudience: https://data.humancellatlas.org/
+usrAuthAudience: https://dev.data.humancellatlas.org/

@@ -24,17 +24,17 @@ spec:
         - name: RABBIT_PORT
           value: ${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: SCHEMA_BASE_URI
-          value: https://schema.{{ .Values.environment }}.data.humancellatlas.org/
+          value: https://{{ .Values.schema }}/
         - name: STATE_TRACKER_HOST
           value: $(INGEST_STATE_TRACKING_SERVICE_SERVICE_HOST)
         - name: STATE_TRACKER_PORT
           value: $(INGEST_STATE_TRACKING_SERVICE_SERVICE_PORT)
         - name: GCP_PROJECT_WHITELIST
-          value: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"
+          value: {{ .Values.gcpProjectWhitelist }}
         - name: SVC_AUTH_AUDIENCE
-          value: https://dev.data.humancellatlas.org/
+          value: {{ .Values.svcAuthAudience }}
         - name: USR_AUTH_AUDIENCE
-          value: https://dev.data.humancellatlas.org/
+          value: {{ .Values.usrAuthAudience }}
         - name: AUTH_ISSUER
           value: https://humancellatlas.auth0.com/
         image: quay.io/humancellatlas/ingest-core:{{ .Values.image }}

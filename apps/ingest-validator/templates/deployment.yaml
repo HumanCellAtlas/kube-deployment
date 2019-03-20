@@ -25,7 +25,7 @@ spec:
         - name: RABBIT_PORT
           value: $(RABBIT_SERVICE_SERVICE_PORT_SERVICE)
         - name: UPLOAD_HOST
-          value: upload.{{ .Values.environment }}.data.humancellatlas.org
+          value: https://{{ .Values.upload }}
         - name: UPLOAD_PORT
           value: "443"
         - name: OLS_HOST
@@ -33,7 +33,7 @@ spec:
         - name: OLS_PORT
           value: $(ONTOLOGY_SERVICE_SERVICE_PORT)
         - name: FASTQ_VALIDATION_IMAGE
-          value: {{ .Values.fastq_image }}
+          value: {{ .Values.fastqImage }}
         - name: UPLOAD_API_KEY
           valueFrom:
             secretKeyRef:

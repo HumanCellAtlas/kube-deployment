@@ -22,7 +22,7 @@ spec:
         - name: RABBIT_URL
           value: amqp://${RABBIT_SERVICE_SERVICE_HOST}:${RABBIT_SERVICE_SERVICE_PORT_SERVICE}
         - name: STAGING_API
-          value: https://upload.{{ .Values.environment }}.data.humancellatlas.org
+          value: https://{{ .Values.upload }}
         - name: INGEST_API_KEY
           valueFrom:
             secretKeyRef:

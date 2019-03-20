@@ -1,1 +1,0 @@
-Ingest-exporter powered by helm charts

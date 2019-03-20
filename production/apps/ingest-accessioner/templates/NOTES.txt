@@ -1,1 +1,0 @@
-Ingest-accessioner powered by helm charts

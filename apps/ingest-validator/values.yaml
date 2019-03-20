@@ -3,3 +3,4 @@
 # Declare variables to be passed into your templates.
 environment: provide_through_set_flag
 image: provide_through_set_flag
+fastqImage: provide_through_set_flag
