@@ -14,7 +14,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 
 ### Ubuntu
 1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
-1. Install terraform using terraform instructions
+1. Install terraform with the [terraform instructions](https://learn.hashicorp.com/terraform/getting-started/install.html). If you install with `sudo snap install terraform` you may run into the error `Error configuring the backend "s3": NoCredentialProviders: no valid providers in chain. Deprecated.`
 1. Install awscli: `pip install awscli`.
 1. Install heptio-authenticator-aws: Follow 'To install heptio-authenticator-aws for Amazon EKS' at https://docs.aws.amazon.com/eks/latest/userguide/configure-kubectl.html.
 1. Install kubectl: `sudo snap install kubectl --classic`
