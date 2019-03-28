@@ -12,6 +12,7 @@ INGEST_EXPORTER_REF=master
 INGEST_STAGING_MANAGER_REF=master_7c4c332
 INGEST_STATE_TRACKING_REF=b4628fc
 INGEST_VALIDATOR_REF=350fc6a
+INGEST_UI_REF=60fad79
 ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.

@@ -2,6 +2,7 @@ upload: upload.staging.data.humancellatlas.org
 dss: dss.staging.data.humancellatlas.org
 schema: schema.staging.data.humancellatlas.org
 ingest: api.ingest.staging.data.humancellatlas.org
+broker: ingest.staging.data.humancellatlas.org
 
 # config values
 gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"

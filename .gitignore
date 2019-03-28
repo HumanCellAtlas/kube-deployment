@@ -65,3 +65,8 @@ infra/.DS_Store
 *.tgz
 
 _local
+
+# vim temporary files
+*~
+*.swp
+*.swo

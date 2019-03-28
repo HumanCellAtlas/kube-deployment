@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-ui-service
+  namespace: {{ .Values.environment }}-environment
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 4200
+  selector:
+    app: ingest-ui
+  sessionAffinity: None
+  type: NodePort

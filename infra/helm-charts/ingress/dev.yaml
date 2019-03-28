@@ -9,6 +9,8 @@ ingress:
         hostname: ingest.dev.data.humancellatlas.org
       - service: ontology-service
         hostname: ontology.dev.data.humancellatlas.org
+      - service: ingest-ui-service
+        hostname: ui.ingest.dev.data.humancellatlas.org
 
 nginx-ingress:
   controller:

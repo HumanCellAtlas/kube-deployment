@@ -10,6 +10,7 @@ ontology = ${ONTOLOGY_REF}
 ingest-staging-manager = ${INGEST_STAGING_MANAGER_REF}
 ingest-state-tracking= ${INGEST_STATE_TRACKING_REF}
 ingest-validator = ${INGEST_VALIDATOR_REF}
+ingest-ui = ${INGEST_UI_REF}
 
 fastq-validator-image = ${FASTQ_VALIDATOR_IMAGE}
 
@@ -34,6 +35,7 @@ deploy-all-apps:
 	$(MAKE) deploy-app-ingest-exporter
 	$(MAKE) deploy-app-ingest-staging-manager
 	$(MAKE) deploy-app-ingest-validator
+	$(MAKE) deploy-app-ingest-ui
 	$(MAKE) deploy-app-ontology
 
 deploy-all:

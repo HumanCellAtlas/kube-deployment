@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    role: ingestion
+  name: ingest-ui
+  namespace: {{ .Values.environment }}-environment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ingest-ui
+    spec:
+      containers:
+      - env:
+        - name: INGEST_API_URL
+          value: https://{{ .Values.ingest }}
+        - name: BROKER_API_URL
+          value: https://{{ .Values.broker }}
+        - name: SCHEMA_API_URL
+          value: https://{{ .Values.schema }}/
+        - name: DSS_API_URL
+          value: https://{{ .Values.dss }}
+        image: quay.io/humancellatlas/ingest-ui:{{ .Values.image }}
+        imagePullPolicy: Always
+        name: ingest-ui
+        ports:
+        - containerPort: 4200
+      dnsPolicy: Default
