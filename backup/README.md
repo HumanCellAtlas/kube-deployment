@@ -10,16 +10,32 @@ Ingest infrastructure is deployed as a system of multiple self contained microse
 
 ## Usage
 
+### Quickstart
+
+Ingest Backup is deployed through Helm on Kubernetes through the `setup.sh` script provided in this module. The setup script [requires AWS access keys](#credentials) can be downloaded through the AWS console in CSV format. Before running the script, the environment variable `DEPLOYMENT_STAGE` must be set as the setup operation uses it to determine which configuration to use. This variable is, at the time of writing, set when switching environments through Ingest deployment procedures.
+
+To deploy Ingest Backup, the script is run with the CSV file:
+
+```
+./setup.sh /path/to/aws_access_credentials.csv
+```
+
+
+
 ### Backing Up
-By default, the backup system is set to run every second hour of the day between 0000H to 2300H, or, in other terms, on hours of the day divisible by 2 (`hour % 2 == 0`). This can be configured by updating the cron schedule in the `backup.yml` file to match another preferred schedule. Alternatively, for intances of ingest backup already deployed through Kubernetes, the schedule can be patched by updating the `spec.schedule` property of the cron job:
+By default, the backup system is set to run every day at 12am. This can be configured by updating the `cronSchedule` config in the respective deployment environment value file in the `config` directory to match another preferred schedule. Alternatively, for instances of ingest backup already deployed through Kubernetes, the schedule can be patched through the `reschedule.sh` script provided in this module. The script takes a cron format schedule string:
 
 ```
-kubectl patch cronjob <job_name> -p '{  "spec": { "schedule": "0 0-23/4 * * *"  }  }'
+./reschedule '*/5 * * * * '
 ```
 
-The patch above will reset the schedule to be every 4 hours instead of every 2 hours.
+Running the sample above will cause the backup procedure to run every five minutes (which is probably a little too frequent). The script works by, essentially, updating the `spec.schedule` property of the cron job:
 
-#### Security Credentials
+```
+kubectl patch cronjob ingest-backup -p '{  "spec": { "schedule": "*/5 * * * *"  }  }'
+```
+
+#### <a name="credentials"></a>Security Credentials
 The backup system uses Amazon's AWS CLI tools to copy data to AWS. As the backup data will be dumped into a remote S3 bucket, the process running the backups need to be configured to have access to the bucket in question. Security credentials should be set through the environment variables to get the backup system working correctly. AWS provides documentation on [how to setup security credentials for the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html).
 
 #### Environment Variables
