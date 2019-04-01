@@ -23,6 +23,8 @@ spec:
           value: https://{{ .Values.schema }}/
         - name: DSS_API_URL
           value: https://{{ .Values.dss }}
+        - name: DOMAIN_WHITELIST
+          value: {{ .Values.domainWhitelist }} 
         image: quay.io/humancellatlas/ingest-ui:{{ .Values.image }}
         imagePullPolicy: Always
         name: ingest-ui

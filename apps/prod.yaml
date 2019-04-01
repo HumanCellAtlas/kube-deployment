@@ -1,6 +1,6 @@
 upload: upload.data.humancellatlas.org
 dss: dss.data.humancellatlas.org
-schema: schema.data.humancellatlas.org
+schema: schema.humancellatlas.org
 ingest: api.ingest.data.humancellatlas.org
 broker: ingest.data.humancellatlas.org
 
@@ -8,3 +8,6 @@ broker: ingest.data.humancellatlas.org
 gcpProjectWhitelist: "hca-dcp-pipelines-prod.iam.gserviceaccount.com,hca-dcp-production.iam.gserviceaccount.com"
 svcAuthAudience: https://data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
+
+# ui
+domainWhitelist: "api.ingest.data.humancellatlas.org,ingest.data.humancellatlas.org"

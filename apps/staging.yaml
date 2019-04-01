@@ -8,3 +8,6 @@ broker: ingest.staging.data.humancellatlas.org
 gcpProjectWhitelist: "hca-dcp-production.iam.gserviceaccount.com,human-cell-atlas-travis-test.iam.gserviceaccount.com,broad-dsde-mint-dev.iam.gserviceaccount.com,broad-dsde-mint-test.iam.gserviceaccount.com,broad-dsde-mint-staging.iam.gserviceaccount.com"
 svcAuthAudience: https://dev.data.humancellatlas.org/
 usrAuthAudience: https://dev.data.humancellatlas.org/
+
+# ui
+domainWhitelist: "api.ingest.staging.data.humancellatlas.org,ingest.staging.data.humancellatlas.org"
