@@ -1,5 +1,10 @@
 # Production Changelog
 
+## 16 Apr 2019
+
+* UI 2c7bfd3:v0.9.1
+ - Presenting all validation errors
+
 ## 19 March 2019
 
 * Validator v0.6.0
