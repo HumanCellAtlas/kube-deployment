@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 30 April 2019
+* Validator v0.6.4:39e6120 (hotfix)
+- Only perform file validation if the the File metadata document is valid
+
 ## 16 Apr 2019
 
 * UI 2c7bfd3:v0.9.1

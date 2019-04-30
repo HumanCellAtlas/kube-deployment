@@ -1,5 +1,9 @@
 # Staging Changelog
 
+## 30 April 2019
+* Validator v0.6.4.rc:39e6120 (hotfix)
+- Only perform file validation if the the File metadata document is valid
+
 ## 20 March 2019
 * Core v0.8.5.rc
 - Exclude property_migrations file when retrieving latest schemas from s3 bucket listing
