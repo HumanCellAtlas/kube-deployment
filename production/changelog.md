@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 15 May 2019 (hotfix)
+* Exporter v0.8.1:6bb5cd5
+- Ignore failed processes trying to create duplicate bundles
+
 ## 30 April 2019
 * Validator v0.6.4:39e6120 (hotfix)
 - Only perform file validation if the the File metadata document is valid
