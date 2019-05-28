@@ -1,5 +1,9 @@
 # Production Changelog
 
+## 28 May 2019
+* UI v0.9.4.rc:f00e018
+- Use Fusillade integration
+
 ## 15 May 2019 (hotfix)
 * Exporter v0.8.1:6bb5cd5
 - Ignore failed processes trying to create duplicate bundles
