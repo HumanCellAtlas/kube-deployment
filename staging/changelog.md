@@ -4,7 +4,7 @@
 * Exporter v0.8.3.rc:be11bc4
 - Fix submissions stuck in Processing due to failed state tracker bundle complete notification
 
-* UI v0.9.4.rc:bb98f1c
+* UI v0.9.5.rc:bb98f1c
 - Make Fusillade url configurable thru env var
 - Fix greetings and picture display
 
