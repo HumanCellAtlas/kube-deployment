@@ -1,5 +1,17 @@
 # Staging Changelog
 
+## 05 Jun 2019
+* Exporter v0.8.3.rc:be11bc4
+- Fix submissions stuck in Processing due to failed state tracker bundle complete notification
+
+* UI v0.9.4.rc:bb98f1c
+- Make Fusillade url configurable thru env var
+- Fix greetings and picture display
+
+## 29 May 2019
+* Exporter 0.8.2.rc
+- Minor changes to prevent creation of Pika connections unncessarily.
+
 ## 22 May 2019
 * Exporter v0.8.1.rc:6bb5cd5
 - Do not inform user when there’s a failure creating a duplicate bundle
