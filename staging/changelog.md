@@ -1,18 +1,5 @@
 # Staging Changelog
-## 29 July 2019
-
-* Broker v0.9.2.rc: e650e6f
-- Fix reporting of submission error
-
-* Core v0.9.3.rc: 487b1cf
-- Fix failure in POSTing submission endpoint
-
-* UI v0.9.7.rc: 8f5010e
-- Removing button to do retry when metadata is invalid
-
 ## 24 July 2019
-* Core v0.9.2.rc
-- Put back authentication for PUT & PATCH requests
 
 * Mongo
 - Set a size limit on in-memory caching to ensure cluster reliability
