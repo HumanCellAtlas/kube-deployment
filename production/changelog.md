@@ -1,5 +1,17 @@
 # Production Changelog
 
+## 30 July 2019
+
+* Core v0.9.2
+- Put back authentication for PUT & PATCH requests
+
+* Mongo
+- Set a size limit on in-memory caching to ensure cluster reliability
+
+### Deployment Notes:
+1. Redeploy the mongo helm chart:
+  * `cd infra && make install-infra-helm-chart-mongo`
+
 ## 28 May 2019
 * UI v0.9.4.rc:f00e018
 - Use Fusillade integration
