@@ -10,6 +10,9 @@
 * UI v0.9.7.rc: 8f5010e
 - Removing button to do retry when metadata is invalid
 
+* Exporter v0.8.7.rc: 5388780
+- Reinstantiate DSS client to prevent token expiration
+
 ## 24 July 2019
 * Core v0.9.2.rc
 - Put back authentication for PUT & PATCH requests
