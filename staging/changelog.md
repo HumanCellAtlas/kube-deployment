@@ -1,5 +1,5 @@
 # Staging Changelog
-## 29 July 2019
+## 30 July 2019
 
 * Broker v0.9.2.rc: e650e6f
 - Fix reporting of submission error
