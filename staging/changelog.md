@@ -13,6 +13,9 @@
 * Exporter v0.8.7.rc: 5388780
 - Reinstantiate DSS client to prevent token expiration
 
+* Validator v0.6.6.rc: a28e364
+- Multiple file validation jobs fix
+
 ## 24 July 2019
 * Core v0.9.2.rc
 - Put back authentication for PUT & PATCH requests
