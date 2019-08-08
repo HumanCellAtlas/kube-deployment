@@ -17,6 +17,7 @@ ONTOLOGY_REF=master
 
 # Make sure the AWS_PROFILE below matches an aws profile in ~/.aws/config or ~/.aws/credentials with admin access to the relevant aws account.
 AWS_PROFILE=hca
+TF_VAR_ops_role=dcp-developer
 # Make sure the vpc ip below is unique
 TF_VAR_vpc_cidr_block=10.80.0.0/16
 

@@ -6,6 +6,8 @@ variable "aws_region" {}
 
 variable "account_id" {}
 
+variable "ops_role" {}
+
 variable "vpc_cidr_block" {}
 
 variable "node_size" {}
@@ -382,6 +384,10 @@ data:
       groups:
         - system:bootstrappers
         - system:nodes
+    - rolearn: arn:aws:iam::${var.account_id}:role/${var.ops_role}
+      username: ops-user
+      groups:
+        - system:masters
 CONFIGMAPAWSAUTH
 }
 
