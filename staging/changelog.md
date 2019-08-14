@@ -2,6 +2,11 @@
 
 ## 14 August 2019
 
+* Core v0.9.4.rc: 49f7c09
+  - Memory-optimized findAssays() for stability
+  - Updated primary and secondary submission documentation
+  - New API endpoints for linking process to input bundle and input files
+
 * Exporter v0.8.8.rc:1f5adad
   - Exporting major/minor schema versions in provenance
   - Fix null:null submission error
