@@ -1,4 +1,14 @@
 # Staging Changelog
+
+## 14 August 2019
+
+* Exporter v0.8.8.rc:1f5adad
+  - Exporting major/minor schema versions in provenance
+  - Fix null:null submission error
+
+* UI v0.10.1.rc:8a25c14
+  - Display project uuid in submission view
+
 ## 30 July 2019
 
 * Broker v0.9.2.rc: e650e6f
