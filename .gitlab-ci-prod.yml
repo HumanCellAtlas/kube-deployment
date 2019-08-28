@@ -1,0 +1,17 @@
+image: rhiananthony/dsde-toolbox:gitlab-runner-11.4.4
+
+stages:
+  - deploy
+
+deploy_ingest:
+  stage: deploy
+  script:
+    - source config/environment_${ENVIRONMENT}
+    - cd apps
+    - for APPLICATION in ${APPLICATION_LIST}; do make deploy-app-${APPLICATION}; done
+  only:
+    refs:
+      - prod
+  tags:
+    - purple
+  when: manual
