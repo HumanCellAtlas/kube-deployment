@@ -12,6 +12,4 @@ deploy_ingest:
   only:
     refs:
       - prod
-  tags:
-    - purple
   when: manual
