@@ -1,4 +1,5 @@
 # Production Changelog
+DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
 
 ## 20 August 2019
 

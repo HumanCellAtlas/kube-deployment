@@ -1,4 +1,5 @@
 # Staging Changelog
+DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RELEASE_NOTES.md
 
 ## 11 September 2019
 
