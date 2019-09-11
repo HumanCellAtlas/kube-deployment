@@ -1,5 +1,21 @@
 # Staging Changelog
 
+## 11 September 2019
+
+* Core 2c5f56c
+  - Moved to JUnit5
+  - Handling bundlemanifest null fields
+  - Logging unhandled exporting exceptions
+  - Updated primary submission documentation
+
+* Validator e52fafb
+  - Fix retrying of file validation
+  - Security Fixes
+
+* UI f42dac1
+  - Remove unnecessary logging
+  - Added link to project view from the submission view
+
 ## 14 August 2019
 
 * Core v0.9.4.rc: 49f7c09
