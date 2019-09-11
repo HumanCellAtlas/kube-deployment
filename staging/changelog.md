@@ -3,10 +3,14 @@ DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RE
 
 ## 11 September 2019
 
-* Core 2c5f56c
+* Core c54cf190
+  - Tracking uuid of staged metadata files
   - Handling bundle manifest null fields
   - Logging unhandled exporting exceptions
   - Updated primary submission documentation
+
+* Exporter 311950c
+  - Fix simple updates issue when staging shar    ed metadata files among bundles
 
 * Validator e52fafb
   - Fix retrying of file validation
