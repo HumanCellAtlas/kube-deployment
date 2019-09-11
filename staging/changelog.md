@@ -4,8 +4,7 @@ DCP Staging Release Notes: https://github.com/HumanCellAtlas/dcp/blob/staging/RE
 ## 11 September 2019
 
 * Core 2c5f56c
-  - Moved to JUnit5
-  - Handling bundlemanifest null fields
+  - Handling bundle manifest null fields
   - Logging unhandled exporting exceptions
   - Updated primary submission documentation
 
