@@ -4,7 +4,7 @@ Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.i
 
 ## Set up local environment
 ### Mac
-1. git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git
+1. `git clone https://github.com/HumanCellAtlas/ingest-kube-deployment.git`
 2. Install [terraform](https://www.terraform.io/intro/getting-started/install.html): `brew install terraform`.
 3. [Ensure your pip is running on python 3](https://opensource.com/article/19/5/python-3-default-mac).
 3. Install [awscli](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html): `pip install awscli`.
