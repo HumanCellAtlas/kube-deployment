@@ -1,6 +1,16 @@
 # Production Changelog
 DCP Production Release Notes: https://github.com/HumanCellAtlas/dcp/blob/prod/RELEASE_NOTES.md
 
+## 05 November 2019
+* UI v0.11.3
+  - Security fixes
+* Exporter v0.10.1
+  - Pointing to latest ingest client version which is using new SchemaTemplate & SchemaParser
+* Staging Manager v0.5.5
+  - Pointing to latest ingest client version which is using new SchemaTemplate & SchemaParser
+* Validator v0.6.9
+  - Return INVALID ValidationReport when describedBy schema can't be retrieved
+
 ## 13 September 2019
 * Core c54cf190
   - Tracking uuid of staged metadata files
