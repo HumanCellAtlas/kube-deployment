@@ -15,6 +15,8 @@ While the strategies were created with HCA DCP specifically in mind, the tools m
 ## <a name="assumptions"></a>Assumptions
 Ingest infrastructure is deployed as a system of multiple self contained microservices through Docker with the use of Kubernetes. The backup system is deployed as a Docker container that has direct access to a predefined Kubernetes service, named `mongo-service` from which it gets the data it backs up to an S3 bucket defined through the `S3_BUCKET` environment variable.
 
+## <a name="locations"></a>Location
+Ingest AWS S3 buckets are in the bucket named `ingest-backup` accessible via the `dcp-admin` role.
 
 ## <a name="usage"></a>Usage
 
