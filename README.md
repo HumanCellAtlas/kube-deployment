@@ -1,3 +1,5 @@
+_This repository was part of HCA DCP/1 and is not maintained anymore. DCP/2 development of this component continues in the forked repository at https://github.com/ebi-ait/ingest-kube-deployment._
+
 # Ingest Service Deployment
 
 Deployment setup for the Ingestion Service on  [Kubernetes](https://kubernetes.io/) clusters.
